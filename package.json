@@ -1,0 +1,10 @@
+{
+  "name": "in_repl",
+  "description": "REPL Console",
+  "version": "0.0.1",
+  "author": "went.out@gmail.com",
+  "engines": [
+    "node >= 0.10.20"
+  ],
+  "main": "index.html"
+}
