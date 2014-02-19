@@ -216,15 +216,38 @@ var start = function (proc, init_ctx, init_opts) {
 
 };
 
+var checkProc = function (proc) {
+	if (!proc.stdin || !proc.stdout) {
+		var stream = require('stream');
+		!proc.stdin && (proc.stdin = new stream.Readable);
+		!proc.stdout && (proc.stdout = new stream.Writable);
+	}
+};
+
 if (require.main.filename == __filename) { //isMain
 	var emptyfn = function () {};
 	setInterval (emptyfn, 1000000);
-	start (process, {
+	start (checkProc(process), {
 		foo: 'bar'
 	});
 } else {
-	module.export = function (proc, context, opts, loger) {
+	module.exports = function (proc, context, opts, loger) {
 		log = loger || log;
-		start (proc, context, opts);
+		start (checkProc(process), context, opts);
 	};
 }
+
+
+/* Example
+
+var repl = require( './repl.js' );
+
+setTimeout (function () {
+	log ('\n\n\n');
+	repl (process, {
+		brige: brige,
+		http: servers.http
+	}, null, yourLogger);
+}, 1000);
+
+*/
