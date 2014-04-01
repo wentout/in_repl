@@ -59,6 +59,8 @@ var start = function (proc, init_ctx, init_opts) {
 
 		var repl_opts = {
 			prompt: '> ',
+			input: proc.stdin,
+			output: proc.stdout,
 			// writer: repl_writer,
 			// useGlobal: false
 		};
@@ -72,6 +74,7 @@ var start = function (proc, init_ctx, init_opts) {
 				case 0:
 					log ('\nSwitched to REPL');
 					log ('For Exit it use [Ctrl + D], or type .exit and hit enter \u21A9\n');
+					log ('List of available commands under [. + tab]');
 					break;
 				case 1:
 					log ('\n\nExit from REPL\n');
@@ -208,11 +211,13 @@ var start = function (proc, init_ctx, init_opts) {
 
 		repl_info ();
 
-		proc.on('exit', function () {
-			log ('Have a nice day!');
-		});
+		// proc.on('exit', function () {
+		// 	log ('Have a nice day!');
+		// });
 
 	} catch (e) {}
+
+	return repl;
 
 };
 
@@ -233,7 +238,7 @@ if (require.main.filename == __filename) { //isMain
 } else {
 	module.exports = function (proc, context, opts, loger) {
 		log = loger || log;
-		start (checkProc(process), context, opts);
+		return start (checkProc(process), context, opts);
 	};
 }
 
