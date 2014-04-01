@@ -73,8 +73,8 @@ var start = function (proc, init_ctx, init_opts) {
 			switch (sw) {
 				case 0:
 					log ('\nSwitched to REPL');
-					log ('For Exit it use [Ctrl + D], or type .exit and hit enter \u21A9\n');
-					log ('List of available commands under [. + tab]');
+					log ('For Exit it use [Ctrl + D], or type .exit and hit enter \u21A9');
+					log ('List of available commands under [. + tab]\n');
 					break;
 				case 1:
 					log ('\n\nExit from REPL\n');
